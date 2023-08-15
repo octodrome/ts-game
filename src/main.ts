@@ -1,26 +1,27 @@
 import './assets/ui/style/style.css'
 import typescriptLogo from './assets/ui/images/typescript.svg'
 import viteLogo from '/vite.svg'
-import { setupCounter } from './counter'
+import { setupDebug } from './debug'
 import { Game } from './game-engine/Game'
 import { Keyboard } from './devices/Keyboard'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
-    <canvas id="screen"></canvas>
-    <br>
     <a href="https://vitejs.dev" target="_blank">
       <img src="${viteLogo}" class="logo" alt="Vite logo" />
     </a>
     <a href="https://www.typescriptlang.org/" target="_blank">
       <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
     </a>
+    <br>
+    <canvas id="screen"></canvas>
+    <br>
     <div class="card">
-      <button id="counter" type="button"></button>
+      <div id="debug"></div>
     </div>
   </div>
 `
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+setupDebug(document.querySelector<HTMLDivElement>('#debug')!)
 
 const game = new Game(document.querySelector<HTMLCanvasElement>('#screen')!)
 const keyboard = new Keyboard()

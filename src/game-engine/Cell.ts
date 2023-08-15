@@ -1,3 +1,6 @@
+// @TODO the player can overlap 1 to 4 cells
+// it would be usefull to store them in an array
+
 export class Cell {
     width: number
     colIndex: number

@@ -25,6 +25,7 @@ export class Game {
         this.display.clear()
         this.brickList.forEach((brick) => this.drawObject(brick))
         this.drawObject(this.player)
+        window.dispatchEvent(new CustomEvent('debug', { detail: this }))
     }
 
     drawObject(object: Player | Brick) {
