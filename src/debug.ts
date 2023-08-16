@@ -1,4 +1,4 @@
-import { Game } from './game-engine/Game'
+import { Game } from './game-engine/Game/Game'
 
 export function setupDebug(element: HTMLDivElement) {
     let data = null

@@ -2,7 +2,7 @@ import './assets/ui/style/style.css'
 import typescriptLogo from './assets/ui/images/typescript.svg'
 import viteLogo from '/vite.svg'
 import { setupDebug } from './debug'
-import { Game } from './game-engine/Game'
+import { Game } from './game-engine/Game/Game'
 import { Keyboard } from './devices/Keyboard'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
