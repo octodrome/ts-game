@@ -1,15 +1,7 @@
 import { Sprite } from './Sprite'
 import { MapMatrix } from './types'
 
-type CollisionMap = {
-    no: boolean
-    ea: boolean
-    we: boolean
-    so: boolean
-}
-
 // @TODO check if the blueprint is valid
-
 export class Map {
     startX = 0
     startY = 0
@@ -21,12 +13,6 @@ export class Map {
     columnTolal: number = 10
     playerSprite: Sprite | null = null
     brickSpriteList: Sprite[] = []
-    collisionMap: CollisionMap = {
-        no: false,
-        ea: false,
-        we: false,
-        so: false,
-    }
 
     constructor(levelIndex: number, blueprintList: string[]) {
         this.mapMatrix = this.bluePrintToMapMatrix(blueprintList[levelIndex])

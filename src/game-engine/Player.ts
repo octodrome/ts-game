@@ -1,6 +1,7 @@
 import { Sprite } from './Sprite'
 import { Size } from './types'
 
+// @TODO implement velocity and gravity
 export class Player {
     sprite: Sprite
     size: Size = { w: 50, h: 50 }

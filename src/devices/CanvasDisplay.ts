@@ -34,7 +34,6 @@ export class CanvasDisplay {
     }
 
     drawDebugLines(): void {
-        // set line stroke and line width
         this.ctx!.globalAlpha = 0.02
         this.ctx!.strokeStyle = 'grey'
         this.ctx!.lineWidth = 1

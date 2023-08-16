@@ -1,3 +1,5 @@
+// @TODO add PNG img prop
+
 export class Sprite {
     width: number
     startX: number
