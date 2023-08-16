@@ -1,12 +1,12 @@
-import { Cell } from './Cell'
+import { Sprite } from './Sprite'
 import { Size } from './types'
 
 export class Brick {
-    cell: Cell
+    sprite: Sprite
     size: Size = { w: 50, h: 50 }
     color: string = '#FF00FF'
 
-    constructor(cell: Cell) {
-        this.cell = cell
+    constructor(sprite: Sprite) {
+        this.sprite = sprite
     }
 }

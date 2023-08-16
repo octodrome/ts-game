@@ -1,10 +1,5 @@
-// @TODO the player can overlap 1 to 4 cells
-// it would be usefull to store them in an array
-
-export class Cell {
+export class Sprite {
     width: number
-    colIndex: number
-    rowIndex: number
     startX: number
     startY: number
     endX: number
@@ -12,8 +7,6 @@ export class Cell {
 
     constructor(colIndex: number, rowIndex: number, width: number) {
         this.width = width
-        this.colIndex = colIndex
-        this.rowIndex = rowIndex
         this.startX = colIndex * width
         this.startY = rowIndex * width
         this.endX = this.startX + width
@@ -25,7 +18,5 @@ export class Cell {
         this.startY += moveY
         this.endX += moveX
         this.endY += moveY
-        this.colIndex = Math.floor(this.startX / this.width)
-        this.rowIndex = Math.floor(this.startY / this.width)
     }
 }

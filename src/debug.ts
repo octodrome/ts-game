@@ -5,14 +5,13 @@ export function setupDebug(element: HTMLDivElement) {
     const setData = (newData: Game) => {
         data = newData
         element.innerHTML = `
-            <h3>Player cell data</h3>
+            <h3>Player sprite data</h3>
             <ul>
-                <li>colIndex : ${data.player.cell.colIndex}</li>
-                <li>rowIndex : ${data.player.cell.rowIndex}</li>
-                <li>startX : ${data.player.cell.startX}</li>
-                <li>startY : ${data.player.cell.startY}</li>
-                <li>endX : ${data.player.cell.endX}</li>
-                <li>endY : ${data.player.cell.endY}</li>
+                <li>startX : ${data.player.sprite.startX}</li>
+                <li>startY : ${data.player.sprite.startY}</li>
+                <li>endX : ${data.player.sprite.endX}</li>
+                <li>endY : ${data.player.sprite.endY}</li>
+                <li>width : ${data.player.sprite.width}</li>
             </ul>
         `
     }

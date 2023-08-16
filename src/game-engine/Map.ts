@@ -1,4 +1,4 @@
-import { Cell } from './Cell'
+import { Sprite } from './Sprite'
 import { MapMatrix } from './types'
 
 type CollisionMap = {
@@ -11,12 +11,16 @@ type CollisionMap = {
 // @TODO check if the blueprint is valid
 
 export class Map {
+    startX = 0
+    startY = 0
+    endX = 500
+    endY = 500
     cellwidth = 50
     mapMatrix: MapMatrix
     rowTotal: number = 10
     columnTolal: number = 10
-    playerIndexes: Cell | null = null
-    brickIndexesList: Cell[] = []
+    playerSprite: Sprite | null = null
+    brickSpriteList: Sprite[] = []
     collisionMap: CollisionMap = {
         no: false,
         ea: false,
@@ -44,15 +48,15 @@ export class Map {
                 columnIndex++
             ) {
                 if (this.mapMatrix[rowIndex][columnIndex] === 'x') {
-                    this.playerIndexes = new Cell(
+                    this.playerSprite = new Sprite(
                         columnIndex,
                         rowIndex,
                         this.cellwidth
                     )
                 }
                 if (this.mapMatrix[rowIndex][columnIndex] === '0')
-                    this.brickIndexesList.push(
-                        new Cell(columnIndex, rowIndex, this.cellwidth)
+                    this.brickSpriteList.push(
+                        new Sprite(columnIndex, rowIndex, this.cellwidth)
                     )
             }
         }

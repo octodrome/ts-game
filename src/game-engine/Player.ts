@@ -1,20 +1,20 @@
-import { Cell } from './Cell'
+import { Sprite } from './Sprite'
 import { Size } from './types'
 
 export class Player {
-    cell: Cell
+    sprite: Sprite
     size: Size = { w: 50, h: 50 }
     color: string = '#FF0000'
 
-    constructor(cell: Cell) {
-        this.cell = cell
+    constructor(sprite: Sprite) {
+        this.sprite = sprite
     }
 
     move({ x, y }: { x: number; y: number }) {
-        this.cell.update(x, y)
+        this.sprite.update(x, y)
     }
 
-    logPlayerCell() {
-        console.log('Player cell', this.cell)
+    logPlayerSprite() {
+        console.log('Player sprite', this.sprite)
     }
 }
