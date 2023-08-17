@@ -13,6 +13,7 @@ export class Map {
     columnTolal: number = 10
     playerSprite: Sprite | null = null
     brickSpriteList: Sprite[] = []
+    collectableSpriteList: Sprite[] = []
 
     constructor(levelIndex: number, blueprintList: string[]) {
         this.mapMatrix = this.bluePrintToMapMatrix(blueprintList[levelIndex])
@@ -42,6 +43,10 @@ export class Map {
                 }
                 if (this.mapMatrix[rowIndex][columnIndex] === '0')
                     this.brickSpriteList.push(
+                        new Sprite(columnIndex, rowIndex, this.cellwidth)
+                    )
+                if (this.mapMatrix[rowIndex][columnIndex] === '*')
+                    this.collectableSpriteList.push(
                         new Sprite(columnIndex, rowIndex, this.cellwidth)
                     )
             }

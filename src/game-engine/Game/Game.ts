@@ -1,5 +1,6 @@
 import { Player } from '../Player'
 import { Brick } from '../Brick'
+import { Collectable } from '../Collectable'
 import { Map } from '../Map'
 import { levelList } from '../../assets/game/levels/level-list'
 import { CanvasDisplay } from '../../devices/CanvasDisplay'
@@ -16,14 +17,18 @@ export class Game {
     map: Map
     player: Player
     brickList: Brick[] = []
+    collectableList: Collectable[] = []
     display: CanvasDisplay
 
     constructor(canvasElement: HTMLCanvasElement) {
         this.level = 0
         this.map = new Map(this.level, levelList)
         this.player = new Player(this.map.playerSprite!)
-        this.map.brickSpriteList.forEach((brickIndexes) =>
-            this.brickList.push(new Brick(brickIndexes))
+        this.map.brickSpriteList.forEach((sprite) =>
+            this.brickList.push(new Brick(sprite))
+        )
+        this.map.collectableSpriteList.forEach((sprite) =>
+            this.collectableList.push(new Collectable(sprite))
         )
         this.display = new CanvasDisplay(canvasElement)
         this.debug()
@@ -32,11 +37,15 @@ export class Game {
     update() {
         this.player.update()
         this.brickList.forEach((b) => b.update())
+        this.collectableList.forEach((b) => b.update())
     }
 
     render() {
         this.display.clear()
         this.brickList.forEach((brick) => this.drawObject(brick))
+        this.collectableList.forEach((collectable) =>
+            this.drawObject(collectable)
+        )
         this.drawObject(this.player)
     }
 
