@@ -1,5 +1,6 @@
 import './assets/ui/style/style.css'
 import typescriptLogo from './assets/ui/images/typescript.svg'
+import githubLogo from './assets/ui/images/github.svg'
 import viteLogo from '/vite.svg'
 import { setupDebug } from './debug'
 import { Game } from './game-engine/Game/Game'
@@ -12,6 +13,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </a>
     <a href="https://www.typescriptlang.org/" target="_blank">
       <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
+    </a>
+    <a href="https://github.com/octodrome/ts-game" target="_blank">
+      <img src="${githubLogo}" class="logo" alt="Github logo"/>
     </a>
     <br>
     <canvas id="screen"></canvas>
