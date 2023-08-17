@@ -9,4 +9,6 @@ export class Brick {
     constructor(sprite: Sprite) {
         this.sprite = sprite
     }
+
+    update(): void {}
 }

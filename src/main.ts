@@ -33,6 +33,7 @@ keyboard.setListener(game)
 
 window.requestAnimationFrame(gameLoop)
 function gameLoop() {
+    game.update()
     game.render()
     window.requestAnimationFrame(gameLoop)
 }

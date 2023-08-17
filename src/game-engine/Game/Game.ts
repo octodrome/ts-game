@@ -29,6 +29,11 @@ export class Game {
         this.debug()
     }
 
+    update() {
+        this.player.update()
+        this.brickList.forEach((b) => b.update())
+    }
+
     render() {
         this.display.clear()
         this.brickList.forEach((brick) => this.drawObject(brick))
@@ -41,16 +46,16 @@ export class Game {
 
     onKeyboard(keyboardEvent: Direction) {
         if (keyboardEvent === 'LEFT' && this.noCollision('LEFT')) {
-            this.player.move({ x: -1, y: 0 })
+            this.player.move({ x: -2, y: 0 })
         }
         if (keyboardEvent === 'RIGHT' && this.noCollision('RIGHT')) {
-            this.player.move({ x: 1, y: 0 })
+            this.player.move({ x: 2, y: 0 })
         }
         if (keyboardEvent === 'UP' && this.noCollision('UP')) {
-            this.player.move({ x: 0, y: -1 })
+            this.player.move({ x: 0, y: -2 })
         }
         if (keyboardEvent === 'DOWN' && this.noCollision('DOWN')) {
-            this.player.move({ x: 0, y: 1 })
+            this.player.move({ x: 0, y: 2 })
         }
         this.debug()
     }
