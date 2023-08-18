@@ -1,5 +1,5 @@
 import './assets/ui/style/style.css'
-import typescriptLogo from './assets/ui/images/typescript.svg'
+import figmaLogo from './assets/ui/images/figma.png'
 import githubLogo from './assets/ui/images/github.svg'
 import viteLogo from '/vite.svg'
 import { setupDebug } from './debug'
@@ -11,8 +11,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <a href="https://vitejs.dev" target="_blank">
       <img src="${viteLogo}" class="logo" alt="Vite logo" />
     </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
+    <a href="https://www.figma.com/file/sDRerDd0ly3V81BG7tcByo/LeLaboratoireDesPossibles?type=design&node-id=0-1&mode=design&t=gtTJPbUBmdCFgAOI-0" target="_blank">
+      <img src="${figmaLogo}" class="logo vanilla" alt="TypeScript logo" />
     </a>
     <a href="https://github.com/octodrome/ts-game" target="_blank">
       <img src="${githubLogo}" class="logo" alt="Github logo"/>
