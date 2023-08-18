@@ -6,7 +6,7 @@ import { levelList } from '../assets/game/levels/level-list'
 test('Map', () => {
     const map = new Map(0, levelList)
     expect(map.playerSprite).toStrictEqual({ x: 5, y: 9 })
-    expect(map.brickSpriteList).toStrictEqual([
+    expect(map.actorSpriteList).toStrictEqual([
         {
             x: 0,
             y: 0,

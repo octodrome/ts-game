@@ -1,6 +1,7 @@
 import { Player } from '../Player'
 import { Brick } from '../Brick'
 import { Collectable } from '../Collectable'
+import { Ground } from '../Ground'
 import { Map } from '../Map'
 import { levelList } from '../../assets/game/levels/level-list'
 import { CanvasDisplay } from '../../devices/CanvasDisplay'
@@ -17,6 +18,7 @@ export class Game {
     map: Map
     player: Player
     brickList: Brick[] = []
+    groundList: Ground[] = []
     collectableList: Collectable[] = []
     display: CanvasDisplay
 
@@ -24,28 +26,29 @@ export class Game {
         this.level = 0
         this.map = new Map(this.level, levelList)
         this.player = new Player(this.map.playerSprite!)
-        this.map.brickSpriteList.forEach((sprite) =>
+        this.map.backgroundSpriteList.forEach((sprite) =>
+            this.groundList.push(new Ground(sprite))
+        )
+        this.map.actorSpriteList.forEach((sprite) =>
             this.brickList.push(new Brick(sprite))
         )
-        this.map.collectableSpriteList.forEach((sprite) =>
-            this.collectableList.push(new Collectable(sprite))
-        )
+        // this.map.collectableSpriteList.forEach((sprite) =>
+        //     this.collectableList.push(new Collectable(sprite))
+        // )
         this.display = new CanvasDisplay(canvasElement)
         this.debug()
     }
 
     update() {
         this.player.update()
-        this.brickList.forEach((b) => b.update())
-        this.collectableList.forEach((b) => b.update())
     }
 
     render() {
-        this.display.clear()
+        this.groundList.forEach((ground) => this.drawObject(ground))
         this.brickList.forEach((brick) => this.drawObject(brick))
-        this.collectableList.forEach((collectable) =>
-            this.drawObject(collectable)
-        )
+        // this.collectableList.forEach((collectable) =>
+        //     this.drawObject(collectable)
+        // )
         this.drawObject(this.player)
     }
 
@@ -53,19 +56,8 @@ export class Game {
         this.display.draw(object)
     }
 
-    onKeyboard(keyboardEvent: Direction) {
-        if (keyboardEvent === 'LEFT' && this.noCollision('LEFT')) {
-            this.player.move({ x: -2, y: 0 })
-        }
-        if (keyboardEvent === 'RIGHT' && this.noCollision('RIGHT')) {
-            this.player.move({ x: 2, y: 0 })
-        }
-        if (keyboardEvent === 'UP' && this.noCollision('UP')) {
-            this.player.move({ x: 0, y: -2 })
-        }
-        if (keyboardEvent === 'DOWN' && this.noCollision('DOWN')) {
-            this.player.move({ x: 0, y: 2 })
-        }
+    onKeyboard(direction: Direction) {
+        if (this.noCollision(direction)) this.player.move(direction)
         this.debug()
     }
 

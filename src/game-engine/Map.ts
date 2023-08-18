@@ -1,5 +1,5 @@
+import { Blueprint } from '../assets/game/levels/level-list'
 import { Sprite } from './Sprite'
-import { MapMatrix } from './types'
 
 // @TODO check if the blueprint is valid
 export class Map {
@@ -8,48 +8,54 @@ export class Map {
     endX = 500
     endY = 500
     cellwidth = 50
-    mapMatrix: MapMatrix
     rowTotal: number = 10
     columnTolal: number = 10
     playerSprite: Sprite | null = null
-    brickSpriteList: Sprite[] = []
+    actorSpriteList: Sprite[] = []
     collectableSpriteList: Sprite[] = []
+    backgroundSpriteList: Sprite[] = []
 
-    constructor(levelIndex: number, blueprintList: string[]) {
-        this.mapMatrix = this.bluePrintToMapMatrix(blueprintList[levelIndex])
-        this.scanMapMatrix()
+    constructor(levelIndex: number, blueprintList: Blueprint[]) {
+        this.backgroundSpriteList = this.blueprintToSpriteList(
+            blueprintList[levelIndex].background
+        )
+        this.actorSpriteList = this.blueprintToSpriteList(
+            blueprintList[levelIndex].actors
+        )
+        this.playerSprite = new Sprite(
+            '/src/assets/game/sprites/player-spritesheet.png',
+            [1, 1],
+            [0, 0],
+            this.cellwidth
+        )
     }
 
-    bluePrintToMapMatrix(blueprint: string): MapMatrix {
-        return blueprint
+    blueprintToSpriteList(blueprint: Blueprint): Sprite[] {
+        const mapMatrix = blueprint.sketch
             .trim()
             .split('\n')
             .map((line) => [...line])
-    }
 
-    scanMapMatrix(): void {
+        const spriteList: Sprite[] = []
         for (let rowIndex = 0; rowIndex < this.rowTotal; rowIndex++) {
             for (
                 let columnIndex = 0;
                 columnIndex < this.columnTolal;
                 columnIndex++
             ) {
-                if (this.mapMatrix[rowIndex][columnIndex] === 'x') {
-                    this.playerSprite = new Sprite(
-                        columnIndex,
-                        rowIndex,
+                if (mapMatrix[rowIndex][columnIndex] !== '.') {
+                    const sprite = new Sprite(
+                        blueprint.url,
+                        [columnIndex, rowIndex],
+                        blueprint.legend[mapMatrix[rowIndex][columnIndex]],
                         this.cellwidth
                     )
+                    spriteList.push(sprite)
                 }
-                if (this.mapMatrix[rowIndex][columnIndex] === '0')
-                    this.brickSpriteList.push(
-                        new Sprite(columnIndex, rowIndex, this.cellwidth)
-                    )
-                if (this.mapMatrix[rowIndex][columnIndex] === '*')
-                    this.collectableSpriteList.push(
-                        new Sprite(columnIndex, rowIndex, this.cellwidth)
-                    )
             }
         }
+
+        console.log('blueprintToSpriteList', spriteList)
+        return spriteList
     }
 }

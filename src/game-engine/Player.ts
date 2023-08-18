@@ -1,11 +1,11 @@
 import { Sprite } from './Sprite'
-import { Size } from './types'
+import { Direction, Size } from './types'
 
 export class Player {
     sprite: Sprite
     size: Size = { w: 50, h: 50 }
     color: string = '#FF0000'
-    gravity = 0.2
+    gravity = 0
     velocity = 3
 
     constructor(sprite: Sprite) {
@@ -23,8 +23,16 @@ export class Player {
         else this.velocity += this.gravity
     }
 
-    move({ x, y }: { x: number; y: number }) {
-        this.sprite.update(x, y)
+    move(direction: Direction) {
+        const speed = 3
+        const moves = {
+            LEFT: { x: -speed, y: 0 },
+            RIGHT: { x: speed, y: 0 },
+            UP: { x: 0, y: -speed },
+            DOWN: { x: 0, y: speed },
+        }
+
+        this.sprite.update(moves[direction].x, moves[direction].y)
     }
 
     logPlayerSprite() {

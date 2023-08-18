@@ -1,8 +1,10 @@
 import { Player } from '../game-engine/Player'
 import { Brick } from '../game-engine/Brick'
 
+// @TODO try loading spriteSheets images fom the constructor
+
 export class CanvasDisplay {
-    isDebug = true
+    isDebug = false
     backgroundColor: string = '#FFFFFF'
     width: number = 500
     height: number = 500
@@ -12,25 +14,27 @@ export class CanvasDisplay {
         canvasElement.width = this.width
         canvasElement.height = this.height
         this.ctx = canvasElement.getContext('2d')
-        this.clear()
     }
 
     draw(object: Player | Brick): void {
         this.ctx!.globalAlpha = 1
-        this.ctx!.fillStyle = object.color
-        this.ctx!.fillRect(
-            object.sprite.startX,
-            object.sprite.startY,
-            object.size.w,
-            object.size.h
-        )
-        if (this.isDebug) this.drawDebugLines()
-    }
+        const img = new Image()
+        img.onload = () => {
+            this.ctx!.drawImage(
+                img,
+                object.sprite.positionOnSheet[0] * 16,
+                object.sprite.positionOnSheet[1] * 16,
+                16,
+                16,
+                object.sprite.startX,
+                object.sprite.startY,
+                50,
+                50
+            )
+        }
+        img.src = object.sprite.sheetUrl
 
-    clear(): void {
-        this.ctx!.globalAlpha = 1
-        this.ctx!.fillStyle = this.backgroundColor
-        this.ctx!.fillRect(0, 0, this.width, this.height)
+        if (this.isDebug) this.drawDebugLines()
     }
 
     drawDebugLines(): void {
