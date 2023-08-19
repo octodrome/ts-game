@@ -23,7 +23,7 @@ export class Map {
             blueprintList[levelIndex].actors
         )
         this.playerSprite = new Sprite(
-            '/src/assets/game/sprites/player-spritesheet.png',
+            'player-sprite-sheet',
             [1, 1],
             [0, 0],
             this.cellwidth
@@ -45,7 +45,7 @@ export class Map {
             ) {
                 if (mapMatrix[rowIndex][columnIndex] !== '.') {
                     const sprite = new Sprite(
-                        blueprint.url,
+                        'map-sprite-sheet',
                         [columnIndex, rowIndex],
                         blueprint.legend[mapMatrix[rowIndex][columnIndex]],
                         this.cellwidth

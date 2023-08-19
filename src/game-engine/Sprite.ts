@@ -1,9 +1,7 @@
-// @TODO add PNG img prop
-
 import { PositionOnMap, PositionOnSheet } from './types'
 
 export class Sprite {
-    sheetUrl: string
+    spriteSheetName: string
     positionOnSheet: PositionOnSheet
     width: number
     startX: number
@@ -12,12 +10,12 @@ export class Sprite {
     endY: number
 
     constructor(
-        sheetUrl: string,
+        spriteSheetName: string,
         positionOnMap: PositionOnMap,
         positionOnSheet: PositionOnSheet,
         width: number
     ) {
-        this.sheetUrl = sheetUrl
+        this.spriteSheetName = spriteSheetName
         this.positionOnSheet = positionOnSheet
         this.width = width
         this.startX = positionOnMap[0] * width
