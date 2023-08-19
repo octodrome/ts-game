@@ -61,6 +61,8 @@ export class Game {
         this.debug()
     }
 
+    // @TODO fix collision not working when player moves 3px and gets stuck in collision block
+    // maybe by moving collision system to Player class
     noCollision(direction: Direction): boolean {
         const notCollidingAnyBrick = {
             LEFT: this.brickList.every((b) =>
