@@ -1,7 +1,8 @@
-import { Blueprint } from '../assets/game/levels/level-list'
+import { Blueprint } from '../assets/game/level-list/level-01'
+import { Level } from './Level'
 import { Sprite } from './Sprite'
+import { Legend } from './types'
 
-// @TODO check if the blueprint is valid
 export class Map {
     startX = 0
     startY = 0
@@ -15,12 +16,15 @@ export class Map {
     collectableSpriteList: Sprite[] = []
     backgroundSpriteList: Sprite[] = []
 
-    constructor(levelIndex: number, blueprintList: Blueprint[]) {
+    constructor(levelIndex: number, levelList: Level[]) {
+        console.log('blueprintList', levelList)
         this.backgroundSpriteList = this.blueprintToSpriteList(
-            blueprintList[levelIndex].background
+            levelList[levelIndex].roomList[0].blueprint.background,
+            levelList[levelIndex].spriteSheet.legend
         )
         this.actorSpriteList = this.blueprintToSpriteList(
-            blueprintList[levelIndex].actors
+            levelList[levelIndex].roomList[0].blueprint.actors,
+            levelList[levelIndex].spriteSheet.legend
         )
         this.playerSprite = new Sprite(
             'player-sprite-sheet',
@@ -30,8 +34,9 @@ export class Map {
         )
     }
 
-    blueprintToSpriteList(blueprint: Blueprint): Sprite[] {
-        const mapMatrix = blueprint.sketch
+    blueprintToSpriteList(blueprint: Blueprint, legend: Legend): Sprite[] {
+        // @TODO trim white spaces in sketches correctly
+        const mapMatrix = blueprint
             .trim()
             .split('\n')
             .map((line) => [...line])
@@ -47,7 +52,7 @@ export class Map {
                     const sprite = new Sprite(
                         'map-sprite-sheet',
                         [columnIndex, rowIndex],
-                        blueprint.legend[mapMatrix[rowIndex][columnIndex]],
+                        legend[mapMatrix[rowIndex][columnIndex]],
                         this.cellwidth
                     )
                     spriteList.push(sprite)

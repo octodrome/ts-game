@@ -16,8 +16,8 @@ export class CanvasDisplay {
         canvasElement.width = this.width
         canvasElement.height = this.height
         this.ctx = canvasElement.getContext('2d')
-        this.img.player.src = '/src/assets/game/sprites/player-sprite-sheet.png'
-        this.img.map.src = '/src/assets/game/sprites/map-sprite-sheet.png'
+        this.img.player.src = '/src/assets/game/sprite-sheets/player/player.png'
+        this.img.map.src = '/src/assets/game/sprite-sheets/map/map.png'
     }
 
     draw(object: Player | Brick): void {

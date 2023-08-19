@@ -3,7 +3,7 @@ import { Brick } from '../Brick'
 import { Collectable } from '../Collectable'
 import { Ground } from '../Ground'
 import { Map } from '../Map'
-import { levelList } from '../../assets/game/levels/level-list'
+import { levelList } from '../../assets/game/level-list/index'
 import { CanvasDisplay } from '../../devices/CanvasDisplay'
 import { Direction } from '../types'
 import {
