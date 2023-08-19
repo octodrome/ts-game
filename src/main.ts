@@ -6,6 +6,8 @@ import { setupDebug } from './debug'
 import { Game } from './game-engine/Game/Game'
 import { Keyboard } from './devices/Keyboard'
 
+// @TODO add eslint
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <a href="https://vitejs.dev" target="_blank">
