@@ -2,6 +2,8 @@ import './assets/ui/style/style.css'
 import figmaLogo from './assets/ui/images/figma.png'
 import githubLogo from './assets/ui/images/github.svg'
 import viteLogo from '/vite.svg'
+import asciiLogo from './assets/ui/images/ascii.png'
+import conventionalCommitsLogo from './assets/ui/images/conventional-commits.png'
 import { setupDebug } from './debug'
 import { Game } from './game-engine/Game/Game'
 import { Keyboard } from './devices/Keyboard'
@@ -16,6 +18,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </a>
     <a href="https://github.com/octodrome/ts-game" target="_blank">
       <img src="${githubLogo}" class="logo" alt="Github logo"/>
+    </a>
+    <a href="https://www.lookuptables.com/text/extended-ascii-table" target="_blank">
+      <img src="${asciiLogo}" class="logo" alt="Ascii logo"/>
+    </a>
+    <a href="https://github.com/commitizen/cz-cli" target="_blank">
+      <img src="${conventionalCommitsLogo}" class="logo" alt="Conventional commit logo"/>
     </a>
     <br>
     <canvas id="screen"></canvas>
