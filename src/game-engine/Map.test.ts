@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { Map } from './Map'
-import { levelList } from '../assets/game/level-list/level-01'
+import { levelList } from '../assets/game/level-list/index'
 
 // @TODO fix test and write other tests for Sprite/Player/Brick
 test('Map', () => {
