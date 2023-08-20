@@ -2,7 +2,7 @@ import { Player } from '../Player'
 import { Brick } from '../Brick'
 import { Collectable } from '../Collectable'
 import { Ground } from '../Ground'
-import { Map } from '../Map'
+import { Scene } from '../Scene'
 import { levelList } from '../../assets/game/level-list/index'
 import { CanvasDisplay } from '../../devices/CanvasDisplay'
 import { Direction } from '../types'
@@ -15,7 +15,7 @@ import {
 
 export class Game {
     level: number
-    map: Map
+    scene: Scene
     player: Player
     brickList: Brick[] = []
     groundList: Ground[] = []
@@ -24,15 +24,15 @@ export class Game {
 
     constructor(canvasElement: HTMLCanvasElement) {
         this.level = 0
-        this.map = new Map(this.level, levelList)
-        this.player = new Player(this.map.playerSprite!)
-        this.map.backgroundSpriteList.forEach((sprite) =>
+        this.scene = new Scene(this.level, levelList)
+        this.player = new Player(this.scene.playerSprite!)
+        this.scene.backgroundSpriteList.forEach((sprite) =>
             this.groundList.push(new Ground(sprite))
         )
-        this.map.actorSpriteList.forEach((sprite) =>
+        this.scene.actorSpriteList.forEach((sprite) =>
             this.brickList.push(new Brick(sprite))
         )
-        // this.map.collectableSpriteList.forEach((sprite) =>
+        // this.scene.collectableSpriteList.forEach((sprite) =>
         //     this.collectableList.push(new Collectable(sprite))
         // )
         this.display = new CanvasDisplay(canvasElement)
@@ -79,14 +79,14 @@ export class Game {
             ),
         }
 
-        const notCollidingMap = {
-            LEFT: this.player.sprite.startX > this.map.startX,
-            RIGHT: this.player.sprite.endX < this.map.endX,
-            UP: this.player.sprite.startY > this.map.startY,
-            DOWN: this.player.sprite.endY < this.map.endY,
+        const notCollidingScene = {
+            LEFT: this.player.sprite.startX > this.scene.startX,
+            RIGHT: this.player.sprite.endX < this.scene.endX,
+            UP: this.player.sprite.startY > this.scene.startY,
+            DOWN: this.player.sprite.endY < this.scene.endY,
         }
 
-        return notCollidingMap[direction] && notCollidingAnyBrick[direction]
+        return notCollidingScene[direction] && notCollidingAnyBrick[direction]
     }
 
     debug() {

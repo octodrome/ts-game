@@ -1,4 +1,4 @@
-import { PositionOnMap, PositionOnSheet } from './types'
+import { PositionOnScene, PositionOnSheet } from './types'
 
 export class Sprite {
     spriteSheetName: string
@@ -11,15 +11,15 @@ export class Sprite {
 
     constructor(
         spriteSheetName: string,
-        positionOnMap: PositionOnMap,
+        positionOnScene: PositionOnScene,
         positionOnSheet: PositionOnSheet,
         width: number
     ) {
         this.spriteSheetName = spriteSheetName
         this.positionOnSheet = positionOnSheet
         this.width = width
-        this.startX = positionOnMap[0] * width
-        this.startY = positionOnMap[1] * width
+        this.startX = positionOnScene[0] * width
+        this.startY = positionOnScene[1] * width
         this.endX = this.startX + width
         this.endY = this.startY + width
     }

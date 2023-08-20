@@ -3,7 +3,7 @@ import { Level } from './Level'
 import { Sprite } from './Sprite'
 import { Legend } from './types'
 
-export class Map {
+export class Scene {
     startX = 0
     startY = 0
     endX = 500
