@@ -4,7 +4,6 @@ import { Collectable } from '../Collectable'
 import { Ground } from '../Ground'
 import { Scene } from '../Scene'
 import { levelList } from '../../assets/game/level-list/index'
-import { CanvasDisplay } from '../../devices/CanvasDisplay'
 import { CardinalDirection, Direction } from '../types'
 import {
     notCollidingBottomOf,
@@ -25,11 +24,9 @@ export class Game {
     brickList: Brick[] = []
     groundList: Ground[] = []
     collectableList: Collectable[] = []
-    display: CanvasDisplay
 
-    constructor(canvasElement: HTMLCanvasElement) {
+    constructor() {
         this.levelList = levelList
-        this.display = new CanvasDisplay(canvasElement)
         this.initScene()
     }
 
@@ -58,22 +55,6 @@ export class Game {
 
     update() {
         this.player!.update()
-    }
-
-    // @TODO render should not be the Game responsability
-    // only state and state mutation should be handled here
-    // CanvasDisplay should do that instead
-    render() {
-        this.groundList.forEach((ground) => this.drawObject(ground))
-        this.brickList.forEach((brick) => this.drawObject(brick))
-        // this.collectableList.forEach((collectable) =>
-        //     this.drawObject(collectable)
-        // )
-        this.drawObject(this.player!)
-    }
-
-    drawObject(object: Player | Brick) {
-        this.display.draw(object)
     }
 
     onKeyboard(direction: Direction) {

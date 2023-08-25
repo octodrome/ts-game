@@ -7,6 +7,7 @@ import conventionalCommitsLogo from './assets/ui/images/conventional-commits.png
 import { setupDebug } from './debug'
 import { Game } from './game-engine/Game/Game'
 import { Keyboard } from './devices/Keyboard'
+import { CanvasDisplay } from './devices/CanvasDisplay'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -35,14 +36,21 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 setupDebug(document.querySelector<HTMLDivElement>('#debug')!)
 
-const game = new Game(document.querySelector<HTMLCanvasElement>('#screen')!)
+const game = new Game()
 const keyboard = new Keyboard()
+const display = new CanvasDisplay(
+    document.querySelector<HTMLCanvasElement>('#screen')!
+)
 keyboard.setListener(game)
 
 window.requestAnimationFrame(gameLoop)
 function gameLoop() {
     game.update()
-    game.render()
+    // @TODO refactor calling just display.draw(game.scene)
+    game.groundList.forEach((ground) => display.draw(ground))
+    game.brickList.forEach((brick) => display.draw(brick))
+    display.draw(game.player!)
+
     window.requestAnimationFrame(gameLoop)
 }
 
