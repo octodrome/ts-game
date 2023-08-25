@@ -1,13 +1,12 @@
 import { PositionOnScene, PositionOnSheet } from './types'
 
 export class Sprite {
-    spriteSheetName: string
-    positionOnSheet: PositionOnSheet
-    width: number
-    startX: number
-    startY: number
-    endX: number
-    endY: number
+    public spriteSheetName: string
+    public positionOnSheet: PositionOnSheet
+    public startX: number
+    public startY: number
+    public endX: number
+    public endY: number
 
     constructor(
         spriteSheetName: string,
@@ -17,14 +16,13 @@ export class Sprite {
     ) {
         this.spriteSheetName = spriteSheetName
         this.positionOnSheet = positionOnSheet
-        this.width = width
         this.startX = positionOnScene[0] * width
         this.startY = positionOnScene[1] * width
         this.endX = this.startX + width
         this.endY = this.startY + width
     }
 
-    update(moveX: number, moveY: number): void {
+    public update(moveX: number, moveY: number): void {
         const animationDelta = Math.floor(Date.now() / 120) % 2
         if (moveX > 0) this.positionOnSheet = [0 + animationDelta, 0]
         if (moveX < 0) this.positionOnSheet = [4 + animationDelta, 0]

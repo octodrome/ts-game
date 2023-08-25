@@ -4,7 +4,6 @@ import { Direction, Size } from './types'
 export class Player {
     sprite: Sprite
     size: Size = { w: 50, h: 50 }
-    color: string = '#FF0000'
 
     constructor(sprite: Sprite) {
         this.sprite = sprite
