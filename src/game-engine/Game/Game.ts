@@ -11,38 +11,38 @@ import { Level } from '../Level'
 import { Room } from '../Room'
 
 export class Game {
-    currentLevel: number = 0
-    currentRoomIndex: number = 0
-    currentPlayerPosition: [number, number] = [1, 1]
-    levelList: Level[]
-    scene: Scene | null = null
+    public scene: Scene | null = null
+
+    private currentLevel: number = 0
+    private currentRoomIndex: number = 0
+    private currentPlayerPosition: [number, number] = [1, 1]
+    private levelList: Level[]
 
     constructor() {
         this.levelList = levelList
         this.initScene()
     }
 
-    initScene() {
-        this.scene = new Scene(
-            this.currentLevel,
-            levelList,
-            this.currentRoomIndex,
-            this.currentPlayerPosition
-        )
-
-        this.debug()
-    }
-
-    onKeyboard(direction: Direction) {
+    public onKeyboard(direction: Direction): void {
         if (this.noCollision(direction)) this.scene!.player!.move(direction)
         if (this.isSwitchingRoom === 'NORTH') this.goToRoom(1, [7, 9])
         if (this.isSwitchingRoom === 'SOUTH') this.goToRoom(0, [7, 0])
         this.debug()
     }
 
+    private initScene(): void {
+        this.scene = new Scene(
+            levelList[this.currentLevel].roomList[this.currentRoomIndex],
+            levelList[this.currentLevel].spriteSheet,
+            this.currentPlayerPosition
+        )
+
+        this.debug()
+    }
+
     // @TODO fix collision not working when player moves 3px and gets stuck in collision block
     // maybe by moving collision system to Player class
-    noCollision(direction: Direction): boolean {
+    private noCollision(direction: Direction): boolean {
         const notCollidingAnyBrick = {
             LEFT: this.scene!.brickList.every((b) =>
                 notCollidingRightOf(b.sprite, this.scene!.player!)
@@ -61,11 +61,11 @@ export class Game {
         return notCollidingAnyBrick[direction]
     }
 
-    get currentRoom(): Room {
+    private get currentRoom(): Room {
         return this.levelList[this.currentLevel].roomList[this.currentRoomIndex]
     }
 
-    get isSwitchingRoom(): CardinalDirection {
+    private get isSwitchingRoom(): CardinalDirection {
         const isSwitchingNorth =
             this.scene!.player!.sprite.startY < this.scene!.startY &&
             typeof this.currentRoom.connexions.no === 'number'
@@ -87,15 +87,16 @@ export class Game {
         return 'NOWHERE'
     }
 
-    goToRoom(roomIndex: number, playerPosition: [number, number]): void {
+    private goToRoom(
+        roomIndex: number,
+        playerPosition: [number, number]
+    ): void {
         this.currentRoomIndex = roomIndex
         this.currentPlayerPosition = playerPosition
         this.initScene()
     }
 
-    debug() {
+    private debug(): void {
         window.dispatchEvent(new CustomEvent('debug', { detail: this }))
-        console.log('player sprite', this.scene!.player!.sprite)
-        console.log('brick sprites', this.scene!.brickList)
     }
 }

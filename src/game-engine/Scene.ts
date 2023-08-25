@@ -1,44 +1,44 @@
-import { Level } from './Level'
 import { Sprite } from './Sprite'
 import { Legend } from './types'
 import { Player } from './Player'
 import { Brick } from './Brick'
 import { Collectable } from './Collectable'
 import { Ground } from './Ground'
+import { Room } from './Room'
+import { SpriteSheet } from './SpriteSheet'
 
 export class Scene {
-    player: Player | null = null
-    brickList: Brick[] = []
-    groundList: Ground[] = []
-    collectableList: Collectable[] = []
+    public player: Player | null = null
+    public brickList: Brick[] = []
+    public groundList: Ground[] = []
+    public collectableList: Collectable[] = []
 
     public startX = 0
     public startY = 0
     public endX = 500
     public endY = 500
-    cellwidth = 50
-    rowTotal: number = 10
-    columnTolal: number = 10
-    playerSprite: Sprite | null = null
-    actorSpriteList: Sprite[] = []
-    collectableSpriteList: Sprite[] = []
-    backgroundSpriteList: Sprite[] = []
+
+    private cellwidth = 50
+    private rowTotal: number = 10
+    private columnTolal: number = 10
+    private playerSprite: Sprite | null = null
+    private actorSpriteList: Sprite[] = []
+    private collectableSpriteList: Sprite[] = []
+    private backgroundSpriteList: Sprite[] = []
 
     constructor(
-        levelIndex: number,
-        levelList: Level[],
-        currentRoom: number,
+        currentRoom: Room,
+        levelSpriteSheet: SpriteSheet,
         currentPlayerPosition: [number, number]
     ) {
         // @TODO simplify constructor : Sprite and Player/Bricklist/Groundlist could be refactered
-        console.log('blueprintList', levelList)
         this.backgroundSpriteList = this.blueprintToSpriteList(
-            levelList[levelIndex].roomList[currentRoom].blueprint.background,
-            levelList[levelIndex].spriteSheet.legend
+            currentRoom.blueprint.background,
+            levelSpriteSheet.legend
         )
         this.actorSpriteList = this.blueprintToSpriteList(
-            levelList[levelIndex].roomList[currentRoom].blueprint.actors,
-            levelList[levelIndex].spriteSheet.legend
+            currentRoom.blueprint.actors,
+            levelSpriteSheet.legend
         )
         this.playerSprite = new Sprite(
             'player-sprite-sheet',
@@ -57,12 +57,12 @@ export class Scene {
         this.actorSpriteList.forEach((sprite) =>
             this.brickList.push(new Brick(sprite))
         )
-        // this.collectableSpriteList.forEach((sprite) =>
-        //     this.collectableList.push(new Collectable(sprite))
-        // )
+        this.collectableSpriteList.forEach((sprite) =>
+            this.collectableList.push(new Collectable(sprite))
+        )
     }
 
-    blueprintToSpriteList(blueprint: string, legend: Legend): Sprite[] {
+    private blueprintToSpriteList(blueprint: string, legend: Legend): Sprite[] {
         // @TODO maybe extract this method as a helper function out of Scene
         // @TODO trim white spaces in sketches correctly
         const mapMatrix = blueprint
@@ -89,7 +89,6 @@ export class Scene {
             }
         }
 
-        console.log('blueprintToSpriteList', spriteList)
         return spriteList
     }
 }
