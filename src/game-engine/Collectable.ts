@@ -9,6 +9,4 @@ export class Collectable {
     constructor(sprite: Sprite) {
         this.sprite = sprite
     }
-
-    update(): void {}
 }

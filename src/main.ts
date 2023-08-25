@@ -45,7 +45,6 @@ keyboard.setListener(game)
 
 window.requestAnimationFrame(gameLoop)
 function gameLoop() {
-    game.update()
     // @TODO refactor calling just display.draw(game.scene)
     game.groundList.forEach((ground) => display.draw(ground))
     game.brickList.forEach((brick) => display.draw(brick))

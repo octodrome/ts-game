@@ -53,10 +53,6 @@ export class Game {
         this.debug()
     }
 
-    update() {
-        this.player!.update()
-    }
-
     onKeyboard(direction: Direction) {
         if (this.noCollision(direction)) this.player!.move(direction)
         if (this.isSwitching === 'NORTH') this.goToRoom(1, [7, 9])

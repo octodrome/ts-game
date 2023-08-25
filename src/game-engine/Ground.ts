@@ -9,6 +9,4 @@ export class Ground {
     constructor(sprite: Sprite) {
         this.sprite = sprite
     }
-
-    update(): void {}
 }
