@@ -45,3 +45,5 @@ function gameLoop() {
     game.render()
     window.requestAnimationFrame(gameLoop)
 }
+
+// @TODO Create UML diagram in dedicated Figma

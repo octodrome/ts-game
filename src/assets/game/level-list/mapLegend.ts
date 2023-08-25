@@ -1,0 +1,17 @@
+export const mapLegend = {
+    '│': { no: true, ea: false, so: true, we: false },
+    '┤': { no: true, ea: false, so: true, we: true },
+    '├': { no: true, ea: true, so: true, we: false },
+    '┼': { no: true, ea: true, so: true, we: true },
+    '─': { no: false, ea: true, so: false, we: true },
+    '┴': { no: true, ea: true, so: false, we: true },
+    '┬': { no: false, ea: true, so: true, we: true },
+    '┘': { no: true, ea: false, so: false, we: true },
+    '┌': { no: false, ea: true, so: true, we: false },
+    '┐': { no: false, ea: false, so: true, we: true },
+    '└': { no: true, ea: true, so: false, we: false },
+    '↑': { no: false, ea: false, so: true, we: false },
+    '←': { no: false, ea: true, so: false, we: false },
+    '→': { no: false, ea: false, so: false, we: true },
+    '↓': { no: true, ea: false, so: false, we: false },
+}

@@ -1,4 +1,3 @@
-import { Blueprint } from '../assets/game/level-list/level-01'
 import { Level } from './Level'
 import { Sprite } from './Sprite'
 import { Legend } from './types'
@@ -16,25 +15,30 @@ export class Scene {
     collectableSpriteList: Sprite[] = []
     backgroundSpriteList: Sprite[] = []
 
-    constructor(levelIndex: number, levelList: Level[]) {
+    constructor(
+        levelIndex: number,
+        levelList: Level[],
+        currentRoom: number,
+        currentPlayerPosition: [number, number]
+    ) {
         console.log('blueprintList', levelList)
         this.backgroundSpriteList = this.blueprintToSpriteList(
-            levelList[levelIndex].roomList[0].blueprint.background,
+            levelList[levelIndex].roomList[currentRoom].blueprint.background,
             levelList[levelIndex].spriteSheet.legend
         )
         this.actorSpriteList = this.blueprintToSpriteList(
-            levelList[levelIndex].roomList[0].blueprint.actors,
+            levelList[levelIndex].roomList[currentRoom].blueprint.actors,
             levelList[levelIndex].spriteSheet.legend
         )
         this.playerSprite = new Sprite(
             'player-sprite-sheet',
-            [1, 1],
+            currentPlayerPosition,
             [0, 0],
             this.cellwidth
         )
     }
 
-    blueprintToSpriteList(blueprint: Blueprint, legend: Legend): Sprite[] {
+    blueprintToSpriteList(blueprint: string, legend: Legend): Sprite[] {
         // @TODO trim white spaces in sketches correctly
         const mapMatrix = blueprint
             .trim()
