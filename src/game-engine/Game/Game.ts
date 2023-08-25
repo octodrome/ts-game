@@ -45,16 +45,16 @@ export class Game {
     private noCollision(direction: Direction): boolean {
         const notCollidingAnyBrick = {
             LEFT: this.scene!.brickList.every((b) =>
-                notCollidingRightOf(b.sprite, this.scene!.player!)
+                notCollidingRightOf(b, this.scene!.player!)
             ),
             RIGHT: this.scene!.brickList.every((b) =>
-                notCollidingLeftOf(b.sprite, this.scene!.player!)
+                notCollidingLeftOf(b, this.scene!.player!)
             ),
             UP: this.scene!.brickList.every((b) =>
-                notCollidingBottomOf(b.sprite, this.scene!.player!)
+                notCollidingBottomOf(b, this.scene!.player!)
             ),
             DOWN: this.scene!.brickList.every((b) =>
-                notCollidingTopOf(b.sprite, this.scene!.player!)
+                notCollidingTopOf(b, this.scene!.player!)
             ),
         }
 
@@ -67,16 +67,16 @@ export class Game {
 
     private get isSwitchingRoom(): CardinalDirection {
         const isSwitchingNorth =
-            this.scene!.player!.sprite.startY < this.scene!.startY &&
+            this.scene!.player!.startY < this.scene!.startY &&
             typeof this.currentRoom.connexions.no === 'number'
         const isSwitchingSouth =
-            this.scene!.player!.sprite.endY > this.scene!.endY &&
+            this.scene!.player!.endY > this.scene!.endY &&
             typeof this.currentRoom.connexions.so === 'number'
         const isSwitchingWest =
-            this.scene!.player!.sprite.startX < this.scene!.startX &&
+            this.scene!.player!.startX < this.scene!.startX &&
             typeof this.currentRoom.connexions.we === 'number'
         const isSwitchingEast =
-            this.scene!.player!.sprite.endX > this.scene!.endX &&
+            this.scene!.player!.endX > this.scene!.endX &&
             typeof this.currentRoom.connexions.ea === 'number'
 
         if (isSwitchingNorth) return 'NORTH'

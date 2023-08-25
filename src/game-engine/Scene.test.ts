@@ -2,7 +2,7 @@ import { expect, test } from 'vitest'
 import { Scene } from './Scene'
 import { levelList } from '../assets/game/level-list/index'
 
-// @TODO fix test and write other tests for Sprite/Player/Brick
+// @TODO fix test and write other tests for Sprite
 test('Scene', () => {
     const map = new Scene(0, levelList)
     expect(map.playerSprite).toStrictEqual({ x: 5, y: 9 })

@@ -1,17 +1,13 @@
 import { Sprite } from './Sprite'
 import { Legend } from './types'
-import { Player } from './Player'
-import { Brick } from './Brick'
-import { Collectable } from './Collectable'
-import { Ground } from './Ground'
 import { Room } from './Room'
 import { SpriteSheet } from './SpriteSheet'
 
 export class Scene {
-    public player: Player | null = null
-    public brickList: Brick[] = []
-    public groundList: Ground[] = []
-    public collectableList: Collectable[] = []
+    public player: Sprite | null = null
+    public brickList: Sprite[] = []
+    public groundList: Sprite[] = []
+    public collectableList: Sprite[] = []
 
     public startX = 0
     public startY = 0
@@ -21,44 +17,25 @@ export class Scene {
     private cellwidth = 50
     private rowTotal: number = 10
     private columnTolal: number = 10
-    private playerSprite: Sprite | null = null
-    private actorSpriteList: Sprite[] = []
-    private collectableSpriteList: Sprite[] = []
-    private backgroundSpriteList: Sprite[] = []
 
     constructor(
         currentRoom: Room,
         levelSpriteSheet: SpriteSheet,
         currentPlayerPosition: [number, number]
     ) {
-        // @TODO simplify constructor : Sprite and Player/Bricklist/Groundlist could be refactered
-        this.backgroundSpriteList = this.blueprintToSpriteList(
+        this.groundList = this.blueprintToSpriteList(
             currentRoom.blueprint.background,
             levelSpriteSheet.legend
         )
-        this.actorSpriteList = this.blueprintToSpriteList(
+        this.brickList = this.blueprintToSpriteList(
             currentRoom.blueprint.actors,
             levelSpriteSheet.legend
         )
-        this.playerSprite = new Sprite(
+        this.player = new Sprite(
             'player-sprite-sheet',
             currentPlayerPosition,
             [0, 0],
             this.cellwidth
-        )
-
-        this.player = new Player(this.playerSprite!)
-
-        this.groundList = []
-        this.backgroundSpriteList.forEach((sprite) =>
-            this.groundList.push(new Ground(sprite))
-        )
-        this.brickList = []
-        this.actorSpriteList.forEach((sprite) =>
-            this.brickList.push(new Brick(sprite))
-        )
-        this.collectableSpriteList.forEach((sprite) =>
-            this.collectableList.push(new Collectable(sprite))
         )
     }
 

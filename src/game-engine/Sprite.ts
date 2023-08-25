@@ -1,4 +1,4 @@
-import { PositionOnScene, PositionOnSheet } from './types'
+import { PositionOnScene, PositionOnSheet, Direction } from './types'
 
 export class Sprite {
     public spriteSheetName: string
@@ -33,5 +33,21 @@ export class Sprite {
         this.startY += moveY
         this.endX += moveX
         this.endY += moveY
+    }
+
+    move(direction: Direction) {
+        const speed = 3
+        const moves = {
+            LEFT: { x: -speed, y: 0 },
+            RIGHT: { x: speed, y: 0 },
+            UP: { x: 0, y: -speed },
+            DOWN: { x: 0, y: speed },
+        }
+
+        this.update(moves[direction].x, moves[direction].y)
+    }
+
+    logPlayerSprite() {
+        console.log('Player sprite', this)
     }
 }

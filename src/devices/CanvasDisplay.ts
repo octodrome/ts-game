@@ -1,6 +1,5 @@
-import { Player } from '../game-engine/Player'
-import { Brick } from '../game-engine/Brick'
 import { Scene } from '../game-engine/Scene'
+import { Sprite } from '../game-engine/Sprite'
 
 export class CanvasDisplay {
     private img = {
@@ -26,20 +25,20 @@ export class CanvasDisplay {
         this.draw(scene!.player!)
     }
 
-    private draw(object: Player | Brick): void {
+    private draw(object: Sprite): void {
         const img =
-            object.sprite.spriteSheetName === 'player-sprite-sheet'
+            object.spriteSheetName === 'player-sprite-sheet'
                 ? this.img.player
                 : this.img.map
 
         this.ctx!.drawImage(
             img,
-            object.sprite.positionOnSheet[0] * 16,
-            object.sprite.positionOnSheet[1] * 16,
+            object.positionOnSheet[0] * 16,
+            object.positionOnSheet[1] * 16,
             16,
             16,
-            object.sprite.startX,
-            object.sprite.startY,
+            object.startX,
+            object.startY,
             50,
             50
         )
