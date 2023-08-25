@@ -25,6 +25,7 @@ export class Game {
 
     public onKeyboard(direction: Direction): void {
         if (this.noCollision(direction)) this.scene!.player!.move(direction)
+        // @TODO continue implementing room switching
         if (this.isSwitchingRoom === 'NORTH') this.goToRoom(1, [7, 9])
         if (this.isSwitchingRoom === 'SOUTH') this.goToRoom(0, [7, 0])
         this.debug()
