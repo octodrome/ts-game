@@ -1,16 +1,16 @@
 import { Player } from '../game-engine/Player'
 import { Brick } from '../game-engine/Brick'
+import { Scene } from '../game-engine/Scene'
 
 export class CanvasDisplay {
-    img = {
+    private img = {
         player: new Image(),
         map: new Image(),
     }
-    isDebug = false
-    backgroundColor: string = '#FFFFFF'
-    width: number = 500
-    height: number = 500
-    ctx: CanvasRenderingContext2D | null
+    private isDebug = false
+    private width: number = 500
+    private height: number = 500
+    private ctx: CanvasRenderingContext2D | null
 
     constructor(canvasElement: HTMLCanvasElement) {
         canvasElement.width = this.width
@@ -20,7 +20,13 @@ export class CanvasDisplay {
         this.img.map.src = '/src/assets/game/sprite-sheets/map/map.png'
     }
 
-    draw(object: Player | Brick): void {
+    public drawScene(scene: Scene): void {
+        scene!.groundList.forEach((ground) => this.draw(ground))
+        scene!.brickList.forEach((brick) => this.draw(brick))
+        this.draw(scene!.player!)
+    }
+
+    private draw(object: Player | Brick): void {
         const img =
             object.sprite.spriteSheetName === 'player-sprite-sheet'
                 ? this.img.player
@@ -41,7 +47,7 @@ export class CanvasDisplay {
         if (this.isDebug) this.drawDebugLines()
     }
 
-    drawDebugLines(): void {
+    private drawDebugLines(): void {
         this.ctx!.globalAlpha = 0.02
         this.ctx!.strokeStyle = 'grey'
         this.ctx!.lineWidth = 1

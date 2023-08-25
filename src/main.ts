@@ -34,21 +34,19 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </div>
   </div>
 `
-setupDebug(document.querySelector<HTMLDivElement>('#debug')!)
+
+const debugElement = document.querySelector<HTMLDivElement>('#debug')!
+const canvasElement = document.querySelector<HTMLCanvasElement>('#screen')!
+setupDebug(debugElement)
 
 const game = new Game()
 const keyboard = new Keyboard()
-const display = new CanvasDisplay(
-    document.querySelector<HTMLCanvasElement>('#screen')!
-)
+const display = new CanvasDisplay(canvasElement)
 keyboard.setListener(game)
 
 window.requestAnimationFrame(gameLoop)
 function gameLoop() {
-    // @TODO refactor calling just display.draw(game.scene)
-    game.groundList.forEach((ground) => display.draw(ground))
-    game.brickList.forEach((brick) => display.draw(brick))
-    display.draw(game.player!)
+    display.drawScene(game.scene!)
 
     window.requestAnimationFrame(gameLoop)
 }

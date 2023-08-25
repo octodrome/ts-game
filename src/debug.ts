@@ -7,11 +7,11 @@ export function setupDebug(element: HTMLDivElement) {
         element.innerHTML = `
             <h3>Player sprite data</h3>
             <ul>
-                <li>startX : ${data.player.sprite.startX}</li>
-                <li>startY : ${data.player.sprite.startY}</li>
-                <li>endX : ${data.player.sprite.endX}</li>
-                <li>endY : ${data.player.sprite.endY}</li>
-                <li>width : ${data.player.sprite.width}</li>
+                <li>startX : ${data.scene!.player!.sprite.startX}</li>
+                <li>startY : ${data.scene!.player!.sprite.startY}</li>
+                <li>endX : ${data.scene!.player!.sprite.endX}</li>
+                <li>endY : ${data.scene!.player!.sprite.endY}</li>
+                <li>width : ${data.scene!.player!.sprite.width}</li>
             </ul>
         `
     }
