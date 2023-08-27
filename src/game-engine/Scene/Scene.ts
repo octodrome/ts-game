@@ -1,13 +1,13 @@
-import { Sprite } from './Sprite'
-import { CardinalDirection, Direction, Legend } from './types'
-import { Room } from './Room'
-import { SpriteSheet } from './SpriteSheet'
+import { Sprite } from '../Sprite'
+import { CardinalDirection, Direction, Legend } from '../types'
+import { Room } from '../Room'
+import { SpriteSheet } from '../SpriteSheet'
 import {
     notCollidingBottomOf,
     notCollidingLeftOf,
     notCollidingRightOf,
     notCollidingTopOf,
-} from './Game/collision'
+} from './collision'
 
 export class Scene {
     public room: Room | null = null

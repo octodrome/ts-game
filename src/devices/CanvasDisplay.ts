@@ -1,4 +1,4 @@
-import { Scene } from '../game-engine/Scene'
+import { Scene } from '../game-engine/Scene/Scene'
 import { Sprite } from '../game-engine/Sprite'
 
 export class CanvasDisplay {

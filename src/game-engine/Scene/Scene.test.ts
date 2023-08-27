@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { Scene } from './Scene'
+import { Scene } from './Scene/Scene'
 import { levelList } from '../assets/game/level-list/index'
 
 // @TODO fix test and write other tests for Sprite

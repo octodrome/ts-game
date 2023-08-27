@@ -1,5 +1,9 @@
 import { Game } from '../game-engine/Game/Game'
 
+// @TODO basic keyboard events useed here are a bit clunky at the moment
+// try to find a way for repeated direction pressed is not waiting
+// try to find a way to go two directions at the same time
+
 export class Keyboard {
     game: Game | null = null
 

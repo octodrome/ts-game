@@ -1,4 +1,4 @@
-import { Scene } from '../Scene'
+import { Scene } from '../Scene/Scene'
 import { levelList } from '../../assets/game/level-list/index'
 import { Direction } from '../types'
 import { Level } from '../Level'
