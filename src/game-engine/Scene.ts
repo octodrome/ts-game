@@ -55,6 +55,7 @@ export class Scene {
     }
 
     // @TODO fix collision not working when player moves 3px and gets stuck in collision block
+    // maybe by limiting movement of 3 px to 2px because the player bumped into a wall ?
     public noCollisionWithPlayerOn(direction: Direction): boolean {
         const notCollidingAnyBrick = {
             LEFT: this.brickList.every((b) =>
@@ -101,7 +102,7 @@ export class Scene {
                 if (mapMatrix[rowIndex][columnIndex] !== '.') {
                     const sprite = new Sprite(
                         'map-sprite-sheet',
-                        [columnIndex, rowIndex],
+                        [columnIndex * 50, rowIndex * 50],
                         legend[mapMatrix[rowIndex][columnIndex]],
                         this.cellwidth
                     )

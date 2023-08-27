@@ -10,7 +10,7 @@ export class Game {
 
     private currentLevel: number = 0
     private currentRoomIndex: number = 0
-    private currentPlayerPosition: [number, number] = [1, 1]
+    private currentPlayerPosition: [number, number] = [50, 50]
 
     constructor() {
         this.levelList = levelList
@@ -20,9 +20,27 @@ export class Game {
     public onKeyboard(direction: Direction): void {
         if (this.scene!.noCollisionWithPlayerOn(direction))
             this.scene!.player!.move(direction)
-        // @TODO continue implementing room switching
-        if (this.scene!.isSwitchingRoomOn('NORTH')) this.goToRoom(1, [7, 9])
-        if (this.scene!.isSwitchingRoomOn('SOUTH')) this.goToRoom(0, [7, 0])
+        // @TODO refactor room switching
+        if (this.scene!.isSwitchingRoomOn('NORTH'))
+            this.goToRoom(
+                this.scene?.room?.connexions.NORTH,
+                this.scene?.player?.nextPositionSwitchingRoomOn('NORTH')
+            )
+        if (this.scene!.isSwitchingRoomOn('SOUTH'))
+            this.goToRoom(
+                this.scene?.room?.connexions.SOUTH,
+                this.scene?.player?.nextPositionSwitchingRoomOn('SOUTH')
+            )
+        if (this.scene!.isSwitchingRoomOn('WEST'))
+            this.goToRoom(
+                this.scene?.room?.connexions.WEST,
+                this.scene?.player?.nextPositionSwitchingRoomOn('WEST')
+            )
+        if (this.scene!.isSwitchingRoomOn('EAST'))
+            this.goToRoom(
+                this.scene?.room?.connexions.EAST,
+                this.scene?.player?.nextPositionSwitchingRoomOn('EAST')
+            )
         this.debug()
     }
 
@@ -46,5 +64,6 @@ export class Game {
 
     private debug(): void {
         window.dispatchEvent(new CustomEvent('debug', { detail: this }))
+        console.log('this.scene.room', this.scene?.room)
     }
 }

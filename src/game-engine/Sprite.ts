@@ -1,4 +1,4 @@
-import { PositionOnScene, PositionOnSheet, Direction } from './types'
+import { Coords, PositionOnSheet, Direction, CardinalDirection } from './types'
 
 export class Sprite {
     public spriteSheetName: string
@@ -10,16 +10,24 @@ export class Sprite {
 
     constructor(
         spriteSheetName: string,
-        positionOnScene: PositionOnScene,
+        // @TODO generalise type difference between Coords and Positions
+        coordsOnScene: Coords,
         positionOnSheet: PositionOnSheet,
         width: number
     ) {
         this.spriteSheetName = spriteSheetName
         this.positionOnSheet = positionOnSheet
-        this.startX = positionOnScene[0] * width
-        this.startY = positionOnScene[1] * width
+        this.startX = coordsOnScene[0]
+        this.startY = coordsOnScene[1]
         this.endX = this.startX + width
         this.endY = this.startY + width
+    }
+
+    public nextPositionSwitchingRoomOn(direction: CardinalDirection) {
+        if (direction === 'NORTH') return [this.startX, 450]
+        if (direction === 'SOUTH') return [this.startX, 0]
+        if (direction === 'EAST') return [0, this.startY]
+        if (direction === 'WEST') return [450, this.startY]
     }
 
     public update(moveX: number, moveY: number): void {
