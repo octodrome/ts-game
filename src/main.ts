@@ -4,6 +4,7 @@ import githubLogo from './assets/ui/images/github.svg'
 import viteLogo from '/vite.svg'
 import asciiLogo from './assets/ui/images/ascii.png'
 import conventionalCommitsLogo from './assets/ui/images/conventional-commits.png'
+import soundIcon from './assets/ui/images/sound.png'
 import { setupDebug } from './debug'
 import { Game } from './game-engine/Game/Game'
 import { Keyboard } from './devices/Keyboard'
@@ -25,6 +26,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </a>
     <a href="https://github.com/commitizen/cz-cli" target="_blank">
       <img src="${conventionalCommitsLogo}" class="logo" alt="Conventional commit logo"/>
+    </a>
+    <a href="http://noproblo.dayjo.org/ZeldaSounds/LA/index.html">
+      <img src="${soundIcon}" class="logo" alt="Sound icon"/>
     </a>
     <br>
     <canvas id="screen"></canvas>
