@@ -10,6 +10,7 @@ import {
 } from './Game/collision'
 
 export class Scene {
+    public room: Room | null = null
     public player: Sprite | null = null
     public brickList: Sprite[] = []
     public groundList: Sprite[] = []
@@ -29,6 +30,7 @@ export class Scene {
         levelSpriteSheet: SpriteSheet,
         currentPlayerPosition: [number, number]
     ) {
+        this.room = currentRoom
         this.groundList = this.blueprintToSpriteList(
             currentRoom.blueprint.background,
             levelSpriteSheet.legend
@@ -45,13 +47,11 @@ export class Scene {
         )
     }
 
-    public isPlayerCollidingSceneOn(direction: CardinalDirection): boolean {
-        if (direction === 'NORTH') return this.player!.startY < this.startY
-        if (direction === 'SOUTH') return this.player!.endY > this.endY
-        if (direction === 'WEST') return this.player!.startX < this.startX
-        if (direction === 'EAST') return this.player!.endX > this.endX
-
-        return false
+    public isSwitchingRoomOn(direction: CardinalDirection): boolean {
+        return (
+            this.isPlayerCollidingSceneOn(direction) &&
+            this.room!.hasConnexionOn(direction)
+        )
     }
 
     // @TODO fix collision not working when player moves 3px and gets stuck in collision block
@@ -72,6 +72,15 @@ export class Scene {
         }
 
         return notCollidingAnyBrick[direction]
+    }
+
+    private isPlayerCollidingSceneOn(direction: CardinalDirection): boolean {
+        if (direction === 'NORTH') return this.player!.startY < this.startY
+        if (direction === 'SOUTH') return this.player!.endY > this.endY
+        if (direction === 'WEST') return this.player!.startX < this.startX
+        if (direction === 'EAST') return this.player!.endX > this.endX
+
+        return false
     }
 
     private blueprintToSpriteList(blueprint: string, legend: Legend): Sprite[] {
