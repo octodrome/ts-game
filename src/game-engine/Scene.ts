@@ -1,7 +1,13 @@
 import { Sprite } from './Sprite'
-import { CardinalDirection, Legend } from './types'
+import { CardinalDirection, Direction, Legend } from './types'
 import { Room } from './Room'
 import { SpriteSheet } from './SpriteSheet'
+import {
+    notCollidingBottomOf,
+    notCollidingLeftOf,
+    notCollidingRightOf,
+    notCollidingTopOf,
+} from './Game/collision'
 
 export class Scene {
     public player: Sprite | null = null
@@ -39,7 +45,7 @@ export class Scene {
         )
     }
 
-    public isPlayerCollidingOn(direction: CardinalDirection): boolean {
+    public isPlayerCollidingSceneOn(direction: CardinalDirection): boolean {
         if (direction === 'NORTH') return this.player!.startY < this.startY
         if (direction === 'SOUTH') return this.player!.endY > this.endY
         if (direction === 'WEST') return this.player!.startX < this.startX
@@ -48,8 +54,24 @@ export class Scene {
         return false
     }
 
-    public get isCollidingEast() {
-        return this.player!.startX < this.startX
+    // @TODO fix collision not working when player moves 3px and gets stuck in collision block
+    public noCollisionWithPlayerOn(direction: Direction): boolean {
+        const notCollidingAnyBrick = {
+            LEFT: this.brickList.every((b) =>
+                notCollidingRightOf(b, this.player!)
+            ),
+            RIGHT: this.brickList.every((b) =>
+                notCollidingLeftOf(b, this.player!)
+            ),
+            UP: this.brickList.every((b) =>
+                notCollidingBottomOf(b, this.player!)
+            ),
+            DOWN: this.brickList.every((b) =>
+                notCollidingTopOf(b, this.player!)
+            ),
+        }
+
+        return notCollidingAnyBrick[direction]
     }
 
     private blueprintToSpriteList(blueprint: string, legend: Legend): Sprite[] {

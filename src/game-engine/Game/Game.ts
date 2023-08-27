@@ -1,12 +1,6 @@
 import { Scene } from '../Scene'
 import { levelList } from '../../assets/game/level-list/index'
 import { CardinalDirection, Direction } from '../types'
-import {
-    notCollidingBottomOf,
-    notCollidingLeftOf,
-    notCollidingRightOf,
-    notCollidingTopOf,
-} from './collision'
 import { Level } from '../Level'
 import { Room } from '../Room'
 
@@ -24,7 +18,8 @@ export class Game {
     }
 
     public onKeyboard(direction: Direction): void {
-        if (this.noCollision(direction)) this.scene!.player!.move(direction)
+        if (this.scene!.noCollisionWithPlayerOn(direction))
+            this.scene!.player!.move(direction)
         // @TODO continue implementing room switching
         if (this.isSwitchingRoomOn('NORTH')) this.goToRoom(1, [7, 9])
         if (this.isSwitchingRoomOn('SOUTH')) this.goToRoom(0, [7, 0])
@@ -41,34 +36,13 @@ export class Game {
         this.debug()
     }
 
-    // @TODO fix collision not working when player moves 3px and gets stuck in collision block
-    // maybe by moving collision system to Player class
-    private noCollision(direction: Direction): boolean {
-        const notCollidingAnyBrick = {
-            LEFT: this.scene!.brickList.every((b) =>
-                notCollidingRightOf(b, this.scene!.player!)
-            ),
-            RIGHT: this.scene!.brickList.every((b) =>
-                notCollidingLeftOf(b, this.scene!.player!)
-            ),
-            UP: this.scene!.brickList.every((b) =>
-                notCollidingBottomOf(b, this.scene!.player!)
-            ),
-            DOWN: this.scene!.brickList.every((b) =>
-                notCollidingTopOf(b, this.scene!.player!)
-            ),
-        }
-
-        return notCollidingAnyBrick[direction]
-    }
-
     private get currentRoom(): Room {
         return this.levelList[this.currentLevel].roomList[this.currentRoomIndex]
     }
 
     private isSwitchingRoomOn(direction: CardinalDirection): boolean {
         return (
-            this.scene!.isPlayerCollidingOn(direction) &&
+            this.scene!.isPlayerCollidingSceneOn(direction) &&
             this.currentRoom.hasConnexionOn(direction)
         )
     }
