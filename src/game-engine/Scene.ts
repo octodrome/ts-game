@@ -1,5 +1,5 @@
 import { Sprite } from './Sprite'
-import { Legend } from './types'
+import { CardinalDirection, Legend } from './types'
 import { Room } from './Room'
 import { SpriteSheet } from './SpriteSheet'
 
@@ -37,6 +37,19 @@ export class Scene {
             [0, 0],
             this.cellwidth
         )
+    }
+
+    public isPlayerCollidingOn(direction: CardinalDirection): boolean {
+        if (direction === 'NORTH') return this.player!.startY < this.startY
+        if (direction === 'SOUTH') return this.player!.endY > this.endY
+        if (direction === 'WEST') return this.player!.startX < this.startX
+        if (direction === 'EAST') return this.player!.endX > this.endX
+
+        return false
+    }
+
+    public get isCollidingEast() {
+        return this.player!.startX < this.startX
     }
 
     private blueprintToSpriteList(blueprint: string, legend: Legend): Sprite[] {

@@ -1,12 +1,12 @@
 // @TODO check if the blueprint is valid
 
-import { RoomPosition } from './types'
+import { CardinalDirection, RoomPosition } from './types'
 
 type RoomConnexions = {
-    no: RoomPosition
-    ea: RoomPosition
-    we: RoomPosition
-    so: RoomPosition
+    NORTH: number | null
+    EAST: number | null
+    WEST: number | null
+    SOUTH: number | null
 }
 
 export class Room {
@@ -16,6 +16,7 @@ export class Room {
         background: string
         actors: string
     }
+
     constructor(
         blueprint: { background: string; actors: string },
         position: RoomPosition,
@@ -24,5 +25,9 @@ export class Room {
         this.blueprint = blueprint
         this.position = position
         this.connexions = connexions
+    }
+
+    hasConnexionOn(direction: CardinalDirection): boolean {
+        return typeof this.connexions[direction] === 'number'
     }
 }

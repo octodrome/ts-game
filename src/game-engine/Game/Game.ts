@@ -26,8 +26,8 @@ export class Game {
     public onKeyboard(direction: Direction): void {
         if (this.noCollision(direction)) this.scene!.player!.move(direction)
         // @TODO continue implementing room switching
-        if (this.isSwitchingRoom === 'NORTH') this.goToRoom(1, [7, 9])
-        if (this.isSwitchingRoom === 'SOUTH') this.goToRoom(0, [7, 0])
+        if (this.isSwitchingRoomOn('NORTH')) this.goToRoom(1, [7, 9])
+        if (this.isSwitchingRoomOn('SOUTH')) this.goToRoom(0, [7, 0])
         this.debug()
     }
 
@@ -66,26 +66,11 @@ export class Game {
         return this.levelList[this.currentLevel].roomList[this.currentRoomIndex]
     }
 
-    private get isSwitchingRoom(): CardinalDirection {
-        const isSwitchingNorth =
-            this.scene!.player!.startY < this.scene!.startY &&
-            typeof this.currentRoom.connexions.no === 'number'
-        const isSwitchingSouth =
-            this.scene!.player!.endY > this.scene!.endY &&
-            typeof this.currentRoom.connexions.so === 'number'
-        const isSwitchingWest =
-            this.scene!.player!.startX < this.scene!.startX &&
-            typeof this.currentRoom.connexions.we === 'number'
-        const isSwitchingEast =
-            this.scene!.player!.endX > this.scene!.endX &&
-            typeof this.currentRoom.connexions.ea === 'number'
-
-        if (isSwitchingNorth) return 'NORTH'
-        if (isSwitchingSouth) return 'SOUTH'
-        if (isSwitchingWest) return 'WEST'
-        if (isSwitchingEast) return 'EAST'
-
-        return 'NOWHERE'
+    private isSwitchingRoomOn(direction: CardinalDirection): boolean {
+        return (
+            this.scene!.isPlayerCollidingOn(direction) &&
+            this.currentRoom.hasConnexionOn(direction)
+        )
     }
 
     private goToRoom(

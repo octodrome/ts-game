@@ -45,10 +45,10 @@ const room0 = new Room(
     },
     [4, 9],
     {
-        no: 1,
-        ea: null,
-        we: null,
-        so: null,
+        NORTH: 1,
+        EAST: null,
+        WEST: null,
+        SOUTH: null,
     }
 )
 
@@ -81,10 +81,10 @@ const room1 = new Room(
     },
     [4, 8],
     {
-        no: null,
-        ea: null,
-        we: null,
-        so: 0,
+        NORTH: null,
+        EAST: null,
+        WEST: null,
+        SOUTH: 0,
     }
 )
 
